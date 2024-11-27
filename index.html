@@ -48,16 +48,22 @@
         .word-list {
             margin-top: 20px;
         }
+        .word-item {
+            margin-bottom: 15px;
+        }
+        .word-item input {
+            width: calc(100% - 20px);
+            padding: 5px;
+            margin: 5px 0;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>单词背诵检测程序</h1>
-        <div>
-            <input type="text" id="german" placeholder="输入德语单词">
-            <input type="text" id="chinese" placeholder="输入中文翻译">
-            <button onclick="checkWord()">检测</button>
-        </div>
+        <div id="currentWord" style="font-size: 20px; margin-bottom: 10px;"></div>
+        <input type="text" id="germanInput" placeholder="输入德语单词">
+        <button onclick="checkWord()">检测</button>
         <div class="word-list">
             <h2>单词列表</h2>
             <table id="wordTable">
