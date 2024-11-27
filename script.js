@@ -7,29 +7,21 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(data => {
             // 存储数据到全局变量
             window.wordsData = data;
-            displayWords(data);
             displayNextWord();
         });
 });
 
-function displayWords(words) {
-    const tableBody = document.querySelector('#wordTable tbody');
-    words.forEach(word => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td>${word.chinese}</td>
-            <td>${word.german_singular}</td>
-            <td>${word.german_plural}</td>
-        `;
-        tableBody.appendChild(row);
-    });
-}
-
 function displayNextWord() {
-    const currentWord = window.wordsData[currentWordIndex];
-    const currentWordElement = document.getElementById('currentWord');
-    currentWordElement.textContent = `正在检测：${currentWord.chinese}`;
-    document.getElementById('germanInput').value = '';
+    if (currentWordIndex < window.wordsData.length) {
+        const currentWord = window.wordsData[currentWordIndex];
+        const currentWordElement = document.getElementById('currentWord');
+        currentWordElement.textContent = `正在检测：${currentWord.chinese}`;
+        document.getElementById('germanInput').value = '';
+    } else {
+        document.getElementById('currentWord').textContent = '所有单词已检测完毕！';
+        document.getElementById('germanInput').disabled = true;
+        document.getElementById('germanInput').placeholder = '检测已完成';
+    }
 }
 
 function checkWord() {
@@ -59,9 +51,5 @@ function checkWord() {
         alert(`错误！正确答案是：${correctAnswer}`);
     }
 
-    if (currentWordIndex < window.wordsData.length) {
-        displayNextWord();
-    } else {
-        document.getElementById('currentWord').textContent = '所有单词已检测完毕！';
-    }
+    displayNextWord();
 }
